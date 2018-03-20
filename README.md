@@ -2,7 +2,6 @@
 
 This script is intended to assist in installing TensorFlow by source onto a Jetson TX# device
 
-By using this script you are agreeing to the Oracle Java licence agreement.
 
 ### How To:
 
@@ -24,5 +23,3 @@ The ```BuildTensorflow.sh``` script will automatically install the Python wheel 
 
 License
 ----
-Oracle
-MIT
