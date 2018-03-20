@@ -1,0 +1,119 @@
+### Do not run this script directly
+#   This script is intended to go along with
+#   BuildTensorflow.sh and remove some of the
+#   more complicated functions that result
+#   in a simple setting of environment variables
+
+whereami=`pwd`
+cuda_location=$(dirname $(dirname $(which nvcc)))
+
+# Get at the deviceQuery sample code to extract useful information
+# about the Jetson GPU and compute capability
+
+cd $cuda_location/samples/1_Utilities/deviceQuery
+make -s
+queryout=$(./deviceQuery)
+
+compute_capability=$(echo $queryout | \
+                     grep -oP "(?<=CUDA Capability Major/Minor version number:)\s*(\d+)\.(\d*)" |
+                     awk '$1=$1')
+
+cuda_drive_version=$(echo $queryout | \
+                     grep -oP "(?<=CUDA Driver Version =)\s*(\d+)\.(\d*)" | \
+                     awk '$1=$1')
+
+cudnn_file=$(locate libcudnn.so | tail -n 1)
+
+cd $whereami
+
+PYTHON_BIN_PATH=$(which python)
+echo "PYTHON_BIN_PATH=$PYTHON_BIN_PATH"
+USE_DEFAULT_PYTHON_LIB_PATH=1
+
+GCC_HOST_COMPILER_PATH=$(which gcc)
+echo "GCC_HOST_COMPILER_PATH=$GCC_HOST_COMPILER_PATH"
+
+# Compile CUDA Information
+TF_NEED_CUDA=1
+CUDA_TOOLKIT_PATH=$cuda_location
+echo "CUDA_TOOLKIT_PATH=$CUDA_TOOLKIT_PATH"
+
+TF_CUDA_VERSION=$cuda_drive_version
+echo "TF_CUDA_VERSION=$TF_CUDA_VERSION"
+
+TF_CUDA_COMPUTE_CAPABILITIES=$compute_capability
+echo "TF_CUDA_COMPUTE_CAPABILITIES=$TF_CUDA_COMPUTE_CAPABILITIES"
+
+CUDNN_INSTALL_PATH=$(dirname "$cudnn_file")
+echo "CUDNN_INSTALL_PATH=$CUDNN_INSTALL_PATH"
+
+TF_CUDNN_VERSION=$(ls -l $CUDNN_INSTALL_PATH | grep -oP '(?<=libcudnn.so.)\s*(\d+)\.(\d*)\.(\d*)\s*' | head -n 1)
+echo "TF_CUDNN_VERSION=$TF_CUDNN_VERSION"
+
+# Disabled for now until I figure out where the libraries are installed
+TF_NEED_TENSORRT=0
+
+TENSORRT_INSTALL_PATH=$CUDNN_INSTALL_PATH
+
+
+
+# Use nvcc as the CUDA compiler
+TF_CUDA_CLANG=0
+
+# Google Cloud Platform Support
+TF_NEED_GCP=0
+# Hadoop File System Support
+TF_NEED_HDFS=0
+# Kafka file System
+TF_NEED_KAFKA=0
+# Amazon S3 support
+TF_NEED_S3=0
+# Architecture Flags
+CC_OPT_FLAGS=-march=native
+# JE Malloc
+TF_NEED_JEMALLOC=1
+# GDR
+TF_NEED_GDR=0
+# OpenCL Support (This is an NVIDIA board, don't use OpenCL)
+TF_NEED_OPENCL=0
+# XLA
+TF_ENABLE_XLA=0
+# NO MKL available for ARM
+TF_NEED_MKL=0
+# MPI Support (we use the video card, no need for this)
+TF_NEED_MPI=0
+# VERBS
+TF_NEED_VERBS=0
+
+#######################################
+# Export Everything
+# just happens to be in the order
+# that the configure file asks the
+# questions
+#######################################
+
+export PYTHON_BIN_PATH=$PYTHON_BIN_PATH
+export USE_DEFAULT_PYTHON_LIB_PATH=$USE_DEFAULT_PYTHON_LIB_PATH
+export TF_NEED_JEMALLOC=$TF_NEED_JEMALLOC
+export TF_NEED_GCP=$TF_NEED_GCP
+export TF_NEED_HDFS=$TF_NEED_HDFS
+export TF_NEED_S3=$TF_NEED_S3
+export TF_NEED_KAFKA=$TF_NEED_KAFKA
+export TF_ENABLE_XLA=$TF_ENABLE_XLA
+export TF_NEED_GDR=$TF_NEED_GDR
+export TF_NEED_VERBS=$TF_NEED_VERBS
+export TF_NEED_OPENCL=$TF_NEED_OPENCL
+export TF_NEED_OPENCL_SYCL=$TF_NEED_OPENCL
+export TF_NEED_CUDA=$TF_NEED_CUDA
+export TF_CUDA_VERSION=$TF_CUDA_VERSION
+export CUDA_TOOLKIT_PATH=$CUDA_TOOLKIT_PATH
+export TF_CUDNN_VERSION=$TF_CUDNN_VERSION
+export CUDNN_INSTALL_PATH=$CUDNN_INSTALL_PATH
+export TF_CUDA_COMPUTE_CAPABILITIES=$TF_CUDA_COMPUTE_CAPABILITIES
+export TF_CUDA_CLANG=$TF_CUDA_CLANG
+export TF_NEED_TENSORRT=$TF_NEED_TENSORRT
+export GCC_HOST_COMPILER_PATH=$GCC_HOST_COMPILER_PATH
+export TF_NEED_MPI=$TF_NEED_MPI
+export CC_OPT_FLAGS=$CC_OPT_FLAGS
+export TF_SET_ANDROID_WORKSPACE=0
+
