@@ -2,6 +2,13 @@
 
 This script is intended to assist in installing TensorFlow by source onto a Jetson TX# device
 
+### Pre-built Wheels:
+
+I highly recommend just using the pre-built wheel files.  I build against Compute Capability 3.5, 5.2, and 6.3.  The result is a larger filesize compared to building against a single architecture, but the wheels are portable between TX1 and TX2.
+
+[TF 1.7.0rc1 Python 2])https://nvidia.box.com/v/Jetson-TF170rc1-aarch64]
+[TF 1.7.0rc1 Python 3](https://nvidia.box.com/v/Jetson-TF170rc1-Py3)
+
 
 ### How To:
 
@@ -13,6 +20,7 @@ $ sudo ./BuildTensorflow.sh
 
 The build process should take between 4 and 6 hours depending on the performance of your device.
 
+Note:  To build for Python 3, open helperscript and locate ```PYTHON_BIN_PATH=$(which python)``` and change this line to be ```PYTHON_BIN_PATH=$(which python3)```
 
 ### Installation
 
@@ -20,6 +28,15 @@ The ```BuildTensorflow.sh``` script will automatically install the Python wheel 
 
 
 ### Todos
+* Clean up folder permissions
+* Somehow find a way to clean up swap if the build fails or is interupted
+* Include TensorRT now included in the TF1.7 release.
+* Include a command line option to build for Python 3
 
 License
 ----
+I do not warranty the use this software.  
+By using this script to build and install TensorFlow you are agreeing to the TensorFlow license, located 
+[here](https://github.com/tensorflow/tensorflow/blob/master/LICENSE).  
+The OpenJDK license is located [here](http://openjdk.java.net/legal/binary-license-2007-08-02.html).  
+Bazel uses Apache License 2.0 and is located [here](https://github.com/bazelbuild/bazel/blob/master/LICENSE).
