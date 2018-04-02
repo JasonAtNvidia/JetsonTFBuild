@@ -41,7 +41,7 @@ echo "CUDA_TOOLKIT_PATH=$CUDA_TOOLKIT_PATH"
 TF_CUDA_VERSION=$cuda_drive_version
 echo "TF_CUDA_VERSION=$TF_CUDA_VERSION"
 
-TF_CUDA_COMPUTE_CAPABILITIES=$compute_capability
+TF_CUDA_COMPUTE_CAPABILITIES=5.3,$compute_capability
 echo "TF_CUDA_COMPUTE_CAPABILITIES=$TF_CUDA_COMPUTE_CAPABILITIES"
 
 CUDNN_INSTALL_PATH=$(dirname "$cudnn_file")
@@ -50,11 +50,11 @@ echo "CUDNN_INSTALL_PATH=$CUDNN_INSTALL_PATH"
 TF_CUDNN_VERSION=$(ls -l $CUDNN_INSTALL_PATH | grep -oP '(?<=libcudnn.so.)\s*(\d+)\.(\d*)\.(\d*)\s*' | head -n 1)
 echo "TF_CUDNN_VERSION=$TF_CUDNN_VERSION"
 
-# Disabled for now until I figure out where the libraries are installed
+# Starting with TF 1.7 TensorRT was built into the TF source code
+# Hopefully this was included in your Jetson install
+# (There is a TF bug I have submitted, currently there is a hardcoded x86 path in the build script)
 TF_NEED_TENSORRT=0
-
 TENSORRT_INSTALL_PATH=$CUDNN_INSTALL_PATH
-
 
 
 # Use nvcc as the CUDA compiler
@@ -109,9 +109,10 @@ export TF_CUDA_VERSION=$TF_CUDA_VERSION
 export CUDA_TOOLKIT_PATH=$CUDA_TOOLKIT_PATH
 export TF_CUDNN_VERSION=$TF_CUDNN_VERSION
 export CUDNN_INSTALL_PATH=$CUDNN_INSTALL_PATH
+export TF_NEED_TENSORRT=$TF_NEED_TENSORRT
+export TENSORRT_INSTALL_PATH=$TENSORRT_INSTALL_PATH
 export TF_CUDA_COMPUTE_CAPABILITIES=$TF_CUDA_COMPUTE_CAPABILITIES
 export TF_CUDA_CLANG=$TF_CUDA_CLANG
-export TF_NEED_TENSORRT=$TF_NEED_TENSORRT
 export GCC_HOST_COMPILER_PATH=$GCC_HOST_COMPILER_PATH
 export TF_NEED_MPI=$TF_NEED_MPI
 export CC_OPT_FLAGS=$CC_OPT_FLAGS

@@ -54,6 +54,12 @@ echo "Expect this script to take up to 6+ hours      "
 echo "                                               "
 echo "Writen by: Jason Tichy < jtichy@nvidia.com >   "
 echo "Version 1.0: Jan 3rd, 2018                     "
+echo "Version 1.1: Mar 30, 2018 Added TensorRT support"
+echo "                                               "
+echo "Note: TF v 1.7.0 release contains a bug for arm"
+echo "because of a hardcoded x86 path in the TensorRT"
+echo "Bazel script, you will need to use master to   "
+echo "build with TensorRT support                    "
 sleep 5s # Sleep for 3 seconds
 
 # Regain CUDA in the PATH of root
@@ -114,7 +120,7 @@ chmod -R ug+rwx bazel
 cd bazel
 ./compile.sh
 cp output/bazel /usr/local/bin
-
+chown -R $(whoami) /usr/local/bin
 # Cleanup and save disk space
 cd $install_dir
 rm -r -f bazel-0.11.1-dist.zip
