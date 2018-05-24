@@ -4,7 +4,7 @@ This script is intended to assist in installing TensorFlow by source onto a Jets
 
 ### Pre-built Wheels:
 
-I highly recommend just using the pre-built wheel files.  I build against Compute Capability  5.2, and 6.3.  The result is a larger filesize compared to building against a single architecture, but the wheels are portable between TX1 and TX2.
+I highly recommend just using the pre-built wheel files.  I build against Compute Capability  5.3 for TX1s, and 6.2 for TX2s.  The result is a larger filesize compared to building against a single architecture, but the wheels are portable between TX1 and TX2.
 
 [TF 1.8.0 w TRT Python 2.7](https://nvidia.box.com/v/TF180-Py27-wTRT)
 
