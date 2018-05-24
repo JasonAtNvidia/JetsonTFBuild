@@ -110,12 +110,12 @@ bazel version
 ## Install Prereqs for Bazel and Tensorflow
 apt-get install openjdk-8-jdk -y
 apt-get install zip unzip autoconf automake libtool curl zlib1g-dev maven -y
-apt-get install python-numpy swig python-dev python-pip python-wheel -y
+apt-get install python-numpy python-enum python-mock swig python-dev python-pip python-wheel -y
 apt-get install python3-dev python3-pip python3-wheel python3-numpy -y
 # Go out and get Bazel 0.9
-wget --no-check-certificate https://github.com/bazelbuild/bazel/releases/download/0.11.1/bazel-0.11.1-dist.zip
+wget --no-check-certificate https://github.com/bazelbuild/bazel/releases/download/0.13.0/bazel-0.13.0-dist.zip
 # Unzip and install Bazel
-unzip bazel-0.11.1-dist.zip -d bazel
+unzip bazel-0.13.0-dist.zip -d bazel
 chmod -R ug+rwx bazel
 cd bazel
 ./compile.sh
@@ -123,7 +123,7 @@ cp output/bazel /usr/local/bin
 chown -R $(whoami) /usr/local/bin
 # Cleanup and save disk space
 cd $install_dir
-rm -r -f bazel-0.11.1-dist.zip
+rm -r -f bazel-0.13.0-dist.zip
 rm -r -f bazel
 }
 
@@ -139,6 +139,10 @@ fi
 
 cd tensorflow/
 git checkout $BRANCH
+
+if [ $BRANCH == "master" ] || [ $BRANCH == "r1.8" ]; then
+    git apply $whereami/tx2.patch
+fi
 
 
 # Use the handy script to set Environment Variables

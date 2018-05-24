@@ -52,9 +52,12 @@ echo "TF_CUDNN_VERSION=$TF_CUDNN_VERSION"
 
 # Starting with TF 1.7 TensorRT was built into the TF source code
 # Hopefully this was included in your Jetson install
-# (There is a TF bug I have submitted, currently there is a hardcoded x86 path in the build script)
-TF_NEED_TENSORRT=0
+TF_NEED_TENSORRT=1
 TENSORRT_INSTALL_PATH=$CUDNN_INSTALL_PATH
+
+# NCCL is an NVIDIA library, but we won't install it more than TF wants at this point
+# TF sees 1.3 as default at this time
+TF_NCCL_VERSION="1.3"
 
 
 # Use nvcc as the CUDA compiler
@@ -111,6 +114,7 @@ export TF_CUDNN_VERSION=$TF_CUDNN_VERSION
 export CUDNN_INSTALL_PATH=$CUDNN_INSTALL_PATH
 export TF_NEED_TENSORRT=$TF_NEED_TENSORRT
 export TENSORRT_INSTALL_PATH=$TENSORRT_INSTALL_PATH
+export TF_NCCL_VERSION=$TF_NCCL_VERSION
 export TF_CUDA_COMPUTE_CAPABILITIES=$TF_CUDA_COMPUTE_CAPABILITIES
 export TF_CUDA_CLANG=$TF_CUDA_CLANG
 export GCC_HOST_COMPILER_PATH=$GCC_HOST_COMPILER_PATH
