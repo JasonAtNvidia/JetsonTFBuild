@@ -110,7 +110,7 @@ bazel version
 ## Install Prereqs for Bazel and Tensorflow
 apt-get install openjdk-8-jdk -y
 apt-get install zip unzip autoconf automake libtool curl zlib1g-dev maven -y
-apt-get install python-numpy python-enum python-mock swig python-dev python-pip python-wheel -y
+apt-get install python-numpy python-enum34 python-mock swig python-dev python-pip python-wheel -y
 apt-get install python3-dev python3-pip python3-wheel python3-numpy -y
 # Go out and get Bazel 0.9
 wget --no-check-certificate https://github.com/bazelbuild/bazel/releases/download/0.13.0/bazel-0.13.0-dist.zip
