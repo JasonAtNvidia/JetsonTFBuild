@@ -41,6 +41,7 @@ The ```BuildTensorflow.sh``` script will automatically install the Python wheel 
 
 License
 ----
+Licensed under the general MIT opensource license.
 I do not warranty the use this software.  
 By using this script to build and install TensorFlow you are agreeing to the TensorFlow license, located 
 [here](https://github.com/tensorflow/tensorflow/blob/master/LICENSE).  
