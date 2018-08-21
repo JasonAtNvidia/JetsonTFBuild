@@ -113,9 +113,9 @@ apt-get install zip unzip autoconf automake libtool curl zlib1g-dev maven -y
 apt-get install python-numpy python-enum34 python-mock swig python-dev python-pip python-wheel -y
 apt-get install python3-dev python3-pip python3-wheel python3-numpy -y
 # Go out and get Bazel 0.9
-wget --no-check-certificate https://github.com/bazelbuild/bazel/releases/download/0.13.0/bazel-0.13.0-dist.zip
+wget --no-check-certificate https://github.com/bazelbuild/bazel/releases/download/0.15.0/bazel-0.15.0-dist.zip
 # Unzip and install Bazel
-unzip bazel-0.13.0-dist.zip -d bazel
+unzip bazel-0.15.0-dist.zip -d bazel
 chmod -R ug+rwx bazel
 cd bazel
 ./compile.sh
@@ -123,7 +123,7 @@ cp output/bazel /usr/local/bin
 chown -R $(whoami) /usr/local/bin
 # Cleanup and save disk space
 cd $install_dir
-rm -r -f bazel-0.13.0-dist.zip
+rm -r -f bazel-0.15.0-dist.zip
 rm -r -f bazel
 }
 
