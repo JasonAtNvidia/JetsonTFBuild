@@ -1,8 +1,8 @@
 diff --git a/tensorflow/contrib/lite/kernels/internal/BUILD b/tensorflow/contrib/lite/kernels/internal/BUILD
-index 167c0f1..f8ddb62 100644
+index a97db6c..b18a653 100644
 --- a/tensorflow/contrib/lite/kernels/internal/BUILD
 +++ b/tensorflow/contrib/lite/kernels/internal/BUILD
-@@ -20,15 +20,12 @@ HARD_FP_FLAGS_IF_APPLICABLE = select({
+@@ -21,15 +21,12 @@ HARD_FP_FLAGS_IF_APPLICABLE = select({
  NEON_FLAGS_IF_APPLICABLE = select({
      ":arm": [
          "-O3",
@@ -18,15 +18,3 @@ index 167c0f1..f8ddb62 100644
      ],
      "//conditions:default": [
          "-O3",
-diff --git a/third_party/png.BUILD b/third_party/png.BUILD
-index 76ab32d..bc4551a 100644
---- a/third_party/png.BUILD
-+++ b/third_party/png.BUILD
-@@ -35,6 +35,7 @@ cc_library(
-     ],
-     includes = ["."],
-     linkopts = ["-lm"],
-+    copts = ["-DPNG_ARM_NEON_OPT=0"],
-     visibility = ["//visibility:public"],
-     deps = ["@zlib_archive//:zlib"],
- )

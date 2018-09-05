@@ -10,9 +10,7 @@ cuda_location=$(dirname $(dirname $(which nvcc)))
 # Get at the deviceQuery sample code to extract useful information
 # about the Jetson GPU and compute capability
 
-cd $cuda_location/samples/1_Utilities/deviceQuery
-make -s
-queryout=$(./deviceQuery)
+queryout=$(/usr/local/cuda/samples/1_Utilities/deviceQuery/deviceQuery)
 
 compute_capability=$(echo $queryout | \
                      grep -oP "(?<=CUDA Capability Major/Minor version number:)\s*(\d+)\.(\d*)" |
@@ -26,7 +24,7 @@ cudnn_file=$(locate libcudnn.so | tail -n 1)
 
 cd $whereami
 
-PYTHON_BIN_PATH=$(which python)
+PYTHON_BIN_PATH=$(which $PYTHON)
 echo "PYTHON_BIN_PATH=$PYTHON_BIN_PATH"
 USE_DEFAULT_PYTHON_LIB_PATH=1
 
@@ -71,6 +69,7 @@ TF_NEED_HDFS=0
 TF_NEED_KAFKA=0
 # Amazon S3 support
 TF_NEED_S3=0
+TF_NEED_AWS=0
 # Architecture Flags
 CC_OPT_FLAGS=-march=native
 # JE Malloc
@@ -101,6 +100,7 @@ export TF_NEED_JEMALLOC=$TF_NEED_JEMALLOC
 export TF_NEED_GCP=$TF_NEED_GCP
 export TF_NEED_HDFS=$TF_NEED_HDFS
 export TF_NEED_S3=$TF_NEED_S3
+export TF_NEED_AWS=$TF_NEED_AWS
 export TF_NEED_KAFKA=$TF_NEED_KAFKA
 export TF_ENABLE_XLA=$TF_ENABLE_XLA
 export TF_NEED_GDR=$TF_NEED_GDR
