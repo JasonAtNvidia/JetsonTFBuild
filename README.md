@@ -6,38 +6,61 @@ This script is intended to assist in installing TensorFlow by source onto a Jets
 
 I highly recommend just using the pre-built wheel files.  I build against Compute Capability  5.3 for TX1s, and 6.2 for TX2s.  The result is a larger filesize compared to building against a single architecture, but the wheels are portable between TX1 and TX2.
 
-[TF 1.8.0 w TRT Python 2.7](https://nvidia.box.com/v/TF180-Py27-wTRT)
+[TF 1.10.1 w TRT Python 2.7](https://nvidia.box.com/v/TF1101-Py27-wTRT)
 
-[TF 1.8.0 w TRT Python 3.5](https://nvidia.box.com/v/TF180-Py35-wTRT)
+[TF 1.10.1 w TRT Python 3.5](https://nvidia.box.com/v/TF1101-Py35-wTRT)
 
-[TF 1.7.0 w TRT Python 2](https://nvidia.box.com/v/TF170-py27-wTRT)
+[TF 1.10.0 w TRT Python 2.7](https://nvidia.box.com/v/TF1100-Py27-wTRT)
 
-[TF 1.7.0 w TRT Python 3](https://nvidia.box.com/v/TF170-py35-wTRT)
+[TF 1.10.0 w TRT Python 3.5](https://nvidia.box.com/v/TF1100-Py35-wTRT)
 
 
 
 ### How To:
 
+Script is updated from the original to contain sudo commands to the front and clean up folder permissions.  No longer will it install TF for you, but install it will use sudo permissions to install all of the packages up front and then leave you with bazel and the tensorflow wheel locally for you to do what you would like with them.
+
 From a terminal window navigate into the folder containing BuildTensorflow.sh
 
 ```sh
-$ sudo ./BuildTensorflow.sh
+$ ./BuildTensorflow.sh
 ```
 
 The build process should take between 4 and 6 hours depending on the performance of your device.
 
-Note:  Due to TensorFlow bug I am turning TF_NEED_TENSORRT=0 by default.  If you are going to build against master you can open helperscript and set this value to 1.
-Note:  To build for Python 3, open helperscript and locate ```PYTHON_BIN_PATH=$(which python)``` and change this line to be ```PYTHON_BIN_PATH=$(which python3)```
 
 ### Installation
 
-The ```BuildTensorflow.sh``` script will automatically install the Python wheel through pip install as well as place the C++ api objects into /usr/local/include and /usr/local/lib for you.  However, if you wish to save the wheel file, it is located in ```/home/nvidia/TensorFlow_Install/tensorflow_pkg```.
+I highly encourage you to look into the shell scripts to see how everything is done.  I try to keep these scripts up to date but sometimes I cannot fix an issue right away and you might be able to resolve the conflict yourself.
 
+BuildTensorflow.sh has some options, not all of them might be operational at the moment.
 
-### Todos
-* Clean up folder permissions
-* Somehow find a way to clean up swap if the build fails or is interrupted
-* Include a command line option to build for Python 3
+-p --python "python"  this will tell the system where to go look for python libraries.  This will get passed directly to the "which" command, therefor use python like it would be called from bash
+-b --branch "TF branch" this will checkout the tag or branch version from the Tensorflow base code
+-s --swapsize "<int>" this will tell the Jetson how much swap memory to create to build TF, I default to 8 which will create 8 gigs of swap.
+
+Examples:
+
+```sh
+$ ./BuildTensorflow.sh
+```
+
+```sh
+$ ./BuildTensorflow.sh -p python3
+```
+
+```sh
+$ ./BuildTensorflow.sh -b v1.10.1 -p python3
+```
+
+When you are finished building there will be bazel and the tensorflow wheel left in the directory you just built in.  You can install the wheels yourself using pip or pip3, or I have included a handy bash script to clean up the environment for you.
+
+```sh
+$ ./InstallandClean.sh
+```
+
+This just removes the swap and installs any TensorFlow wheels located in the local directory.
+
 
 License
 ----

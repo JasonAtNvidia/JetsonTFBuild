@@ -36,4 +36,5 @@ fi
 echo " I am leaving the bazel binary and the tensorflow directory"
 echo " You may want to move bazel to /usr/local/bin if you want it installed"
 echo " you may also want to use the tensorflow directory and all of its built glory"
+echo " (for instance, installing the TF C++ libraries)"
 
