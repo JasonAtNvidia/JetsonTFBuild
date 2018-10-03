@@ -86,6 +86,8 @@ TF_NEED_MKL=0
 TF_NEED_MPI=0
 # VERBS
 TF_NEED_VERBS=0
+# nGraph
+TF_NEED_NGRAPH=0
 
 #######################################
 # Export Everything
@@ -121,4 +123,5 @@ export GCC_HOST_COMPILER_PATH=$GCC_HOST_COMPILER_PATH
 export TF_NEED_MPI=$TF_NEED_MPI
 export CC_OPT_FLAGS=$CC_OPT_FLAGS
 export TF_SET_ANDROID_WORKSPACE=0
+export TF_NEED_NGRAPH=$TF_NEED_NGRAPH
 

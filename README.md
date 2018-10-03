@@ -1,18 +1,19 @@
 # Build TensorFlow Bash Script
 
 This script is intended to assist in installing TensorFlow by source onto a Jetson TX# device
+This script also works great on a Jetson AGX Xavier Device as well.
 
 ### Pre-built Wheels:
 
 I highly recommend just using the pre-built wheel files.  I build against Compute Capability  5.3 for TX1s, and 6.2 for TX2s.  The result is a larger filesize compared to building against a single architecture, but the wheels are portable between TX1 and TX2.
 
+[TF 1.11.0 w TRT Python 2.7](https://nvidia.box.com/v/JP33-TF1-11-0-py27-wTRT)
+
+[TF 1.11.0 w TRT Python 3.5](https://nvidia.box.com/v/JP33-TF1-11-0-py35-wTRT)
+
 [TF 1.10.1 w TRT Python 2.7](https://nvidia.box.com/v/TF1101-Py27-wTRT)
 
 [TF 1.10.1 w TRT Python 3.5](https://nvidia.box.com/v/TF1101-Py35-wTRT)
-
-[TF 1.10.0 w TRT Python 2.7](https://nvidia.box.com/v/TF1100-Py27-wTRT)
-
-[TF 1.10.0 w TRT Python 3.5](https://nvidia.box.com/v/TF1100-Py35-wTRT)
 
 
 

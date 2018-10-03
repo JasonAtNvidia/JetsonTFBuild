@@ -16,7 +16,7 @@ set -e
 # Step 4: Build Tensorflow
 
 # Set some default variables before calling to the command line
-BRANCH=master
+BRANCH=v1.11.0
 SWAPSIZE=8
 # Log the location this was run from
 whereami=$(pwd)
@@ -45,7 +45,7 @@ function usage
     echo "-d | --dir <directory> Directory to download files and use for build process, default: pwd/TensorFlow_install"
     echo "-h | --help  This message"
 	echo "                         "
-	echo "ex: ./BuildTensorflow.sh -p python2 -b v1.10.0"
+	echo "ex: ./BuildTensorflow.sh -p python2 -b v1.11.0"
 }
 
 
